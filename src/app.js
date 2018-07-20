@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import GameWordSearch from './components/NotebookCustomizer.vue';
+import NotebookCustomizer from './components/NotebookCustomizer.vue';
 
 new Vue({
     el: '#app',
