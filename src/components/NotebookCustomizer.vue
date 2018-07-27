@@ -107,15 +107,6 @@
 <script>
 export default {
     name: 'NotebookCustomizer',
-    props: {
-        remoteUrl: {
-            type: String,
-            required: true,
-        },
-        searcherUrl: {
-
-        },
-    },
     methods: {
         nextPage(){
             if(this.destinationPage < this.totalPages){
@@ -402,10 +393,10 @@ export default {
             transform-origin: 100% 0 0;
             transform: rotateY(-90deg) perspective(1000px);
             &.okladka1{
-                background-image: url(img/leather.jpg);
+                background-image: url(../images/cover1.jpg);
             }
             &.okladka2{
-                background-image:url(img/cover2.jpg);
+                background-image:url(../images/cover2.jpg);
             }
             &.okladka3{
                 background-color: #a22;
@@ -438,7 +429,7 @@ export default {
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3e2c7', endColorstr='#e9d4b3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
         }
         .shadow{
-            background-image: url(img/notebook-shadow.png);
+            background-image: url(../images/notebook-shadow.png);
             background-size: 100% 100%;
             background-color: transparent;
             display: block;
@@ -546,7 +537,7 @@ export default {
                     box-shadow: inset -20px 0 120px -50px rgba(0,0,0,0.75);
                 }
                 .cover-nadruk{
-                    background-image: url(img/okladka.png);
+                    background-image: url(../images/cover2.jpg);
                     background-size: 100% 100%;
                     width: 195px;
                     height: 290px;
@@ -554,14 +545,14 @@ export default {
                 }
                 .kartka{
                     background-color: #fff;
-                    background-image: url(img/kratka.png);
+                    background-image: url(../images/cover1.jpg);
                     background-size: 100% 100%;
                     width: 195px;
                     height: 290px;
                     margin-top: 5px;
                 }
                 .kalendarz{
-                    background-image: url(img/kalendarz.png);
+                    background-image: url(../images/cover1.jpg);
                     background-size: 100% 100%;
                     background-color: #fff;
                     width: 195px;
@@ -569,7 +560,7 @@ export default {
                     margin-top: 5px;
                 }
                 .reklama{
-                    background-image: url(img/reklama.png);
+                    background-image: url(../images/cover1.jpg);
                     background-size: 100% 100%;
                     background-color: #D8AF60;
                     width: 195px;
@@ -589,7 +580,7 @@ export default {
                     margin-top: 5px;
                 }
                 .banderola{
-                    background-image: url(img/banderola.jpg);
+                    background-image: url(../images/cover1.jpg);
                     background-size: cover;
                     background-repeat: repeat-y;
                     background-color: #fff;
@@ -600,7 +591,7 @@ export default {
                     box-shadow: 0 0 5px rgba(0,0,0,0.75);;
                 }
                 .gumka-zamykajaca{
-                    background-image: url(img/gumka-zamykajaca.png);
+                    background-image: url(../images/cover1.jpg);
                     background-size: auto;
                     background-repeat: repeat-y;
                     background-color: #fff;
@@ -612,7 +603,7 @@ export default {
                     box-shadow: 0 0 5px rgba(0,0,0,0.75);;
                 }
                 .gumka-uchwyt-dlugopis{
-                    background-image: url(img/gumka-uchwyt-dlugopis.png);
+                    background-image: url(../images/cover1.jpg);
                     background-size: auto;
                     background-repeat: repeat-y;
                     background-color: #fff;
@@ -625,7 +616,7 @@ export default {
                     box-shadow: 0 0 5px rgba(0,0,0,0.75);;
                 }
                 .okladka1{
-                    background-image: url(img/shadow.png), url(img/leather.jpg);
+                    background-image: url(../images/shadow.png), url(../images/cover1.jpg);
                     background-color: darkgray;
                     background-position: left center, center;
                     background-size: auto 100%, 50%;
@@ -633,7 +624,7 @@ export default {
                     box-shadow: inset -20px 0 120px -50px rgba(0,0,0,0.75);
                 }
                 .okladka2{
-                    background-image: url(img/shadow.png), url(img/cover.jpg);
+                    background-image: url(../images/shadow.png), url(../images/cover2.jpg);
                     background-color: darkgray;
                     background-position: left center, center;
                     background-size: auto 100%, 50%;

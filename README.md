@@ -27,3 +27,7 @@ Then you can run files in dist/ folder.
 ## Authors
 
 * **Sebastian Kopeć**
+
+## Credits
+
+* [http://www.cadhatch.com/seamless-rubber-and-plastic/4588167785](http://www.cadhatch.com/seamless-rubber-and-plastic/4588167785) - Leather texture
