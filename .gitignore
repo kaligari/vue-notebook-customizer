@@ -1,5 +1,3 @@
 node_modules/
-dist/css/*
-dist/js/*
-dist/index.html
+dist/*
 hot
