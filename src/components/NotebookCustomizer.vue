@@ -1,91 +1,117 @@
 <template>
-    <section class="section" id="notebook-customizer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-10 col-sm-2-offset col-sm-12">
-                    <div id="notes" :class="[{'page-first':currentPage == 0},{'page-last':currentPage == totalPages},notebook.corners,view]">
-                        <div class="spine" :class="notebook.spine" :style="{'background-color':notebook.spineColor}"></div>
-                        <div class="side-printing" ></div>
-                        <div class="mods">
-                            <template v-for="(page,key,index) in notebook.pages">
-                                <div class="mod" :class="[{'otwarta':index < currentPage},{'on-top':index == currentPage && onTop}]" :data-id="index" :style="[{'z-index':index < currentPage ? index : -index},{'animation-duration':pageSpeed*2+'ms'}]">
-                                    <div v-if="page.childFront2" class="child-front-2" :class="page.childFront2.class"></div>
-                                    <div v-if="page.childFront1" class="child-front-1" :class="page.childFront1.class"></div>
-                                    <div v-if="page.childFront" class="child-front" :class="page.childFront.class"></div>
-                                    <div class="basic" :class="page.class" :style="{'background-color':page.color}"></div>
-                                    <div v-if="page.childBack" class="child-back" :class="page.childBack.class"></div>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="shadow" :style="{'transition-duration':pageSpeed*2+'ms'}"></div>
-
+    <div id="notebook-customizer">
+        <div class="columns">
+            <div class="column is-8 is-offset-2">
+                <div id="notes" :class="[{'page-first':currentPage == 0},{'page-last':currentPage == totalPages},notebook.corners,view]">
+                    <div class="spine" :class="notebook.spine" :style="{'background-color':notebook.spineColor}"></div>
+                    <div class="side-printing" ></div>
+                    <div class="mods">
+                        <template v-for="(page,key,index) in notebook.pages">
+                            <div class="mod" :class="[{'otwarta':index < currentPage},{'on-top':index == currentPage && onTop}]" :data-id="index" :style="[{'z-index':index < currentPage ? index : -index},{'animation-duration':pageSpeed*2+'ms'}]">
+                                <div v-if="page.childFront2" class="child-front-2" :class="page.childFront2.class"></div>
+                                <div v-if="page.childFront1" class="child-front-1" :class="page.childFront1.class"></div>
+                                <div v-if="page.childFront" class="child-front" :class="page.childFront.class"></div>
+                                <div class="basic" :class="page.class" :style="{'background-color':page.color}"></div>
+                                <div v-if="page.childBack" class="child-back" :class="page.childBack.class"></div>
+                            </div>
+                        </template>
                     </div>
+                    <div class="shadow" :style="{'transition-duration':pageSpeed*2+'ms'}"></div>
+
                 </div>
-                <div class="col-sm-4">
-                    <p class="text-center">
-                        <button @click="setPage(0,200)">Start</button> |
-                        <button @click="prevPage()">Prev</button> |
-                        <button @click="nextPage()">Next</button> |
-                        <button @click="setPage(totalPages,200)">End</button><br />
-                        Strona: {{ destinationPage }} -> {{ currentPage }}<br>
-                        {{ isPaged }}
+            </div>
+        </div>
+        <div class="columns controls">
+            <div class="column is-12 has-text-centered">
+                <p>
+                    Page: {{ currentPage }}
+                </p>
+                <div class="buttons has-addons is-centered">
+                    <span class="button is-info" @click="setPage(0,200)">Start</span>
+                    <span class="button" @click="prevPage()">Previous page</span>
+                    <span class="button" @click="nextPage()">Next page</span>
+                    <span class="button is-info" @click="setPage(totalPages,200)">End</span>
+                </div>
+            </div>
+        </div>
+        <div class="columns controls">
+            <div class="column is-4 is-offset-2">
+                <div class="panel">
+                    <div class="panel-heading">
+                        See outside
+                    </div>
+                    <div class="panel-block">
+                        <span class="button is-fullwidth" @click="setView('spine')">Grzbiet</span>
+                        <span class="button is-fullwidth" @click="setView('side-printing')">Brzegi</span>
+                    </div>
+                <div class="panel-heading">
+                    See inside
+                </div>
+                <div class="panel-block">
+                    <p class="control">
+                        <span class="button is-fullwidth" @click="setPage(0)">Okładka przód</span>
+                        <span class="button is-fullwidth" @click="setPage(1)">Wyklejka z przodu</span>
+                        <span class="button is-fullwidth" @click="setPage(2)">Kalendarz</span>
+                        <span class="button is-fullwidth" @click="setPage(4)">Wnętrze</span>
+                        <span class="button is-fullwidth" @click="setPage(6)">Strony reklamowe</span>
+                        <span class="button is-fullwidth" @click="setPage(7)">Wyklejka z tyłu</span>
+                        <span class="button is-fullwidth" @click="setPage(8)">Okładka tył</span>
                     </p>
-                    <p class="text-center">
-                        <button @click="setPage(0)">Okładka przód</button><br />
-                        <button @click="setPage(1)">Wyklejka z przodu</button><br />
-                        <button @click="setPage(2)">Kalendarz</button><br />
-                        <button @click="setPage(4)">Wnętrze</button><br />
-                        <button @click="setPage(6)">Strony reklamowe</button><br />
-                        <button @click="setPage(7)">Wyklejka z tyłu</button><br />
-                        <button @click="setPage(8)">Okładka tył</button><br /><br />
-                        <button @click="setView('spine')">Grzbiet</button>
-                        <button @click="setView('side-printing')">Brzegi</button>
-                    </p>
                 </div>
-                <div class="col-sm-4">
-                    <form>
-                        <fieldset class="form-group">
-                            <legend>Narożniki</legend>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input v-model="form.corners" type="radio" name="corners" id="rounded-corners" value="rounded-corners">
-                                    zaokrąglone narożniki
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input v-model="form.corners" type="radio" name="corners" id="normal-corners" value="normal-corners">
-                                    proste narożniki
-                                </label>
-                            </div>
-                        </fieldset>
-                        <div class="form-group">
-                            <legend>Okładka</legend>
-                            <label for="formOkladka">Okładka</label>
-                            <select class="form-control" id="formOkladka" v-model="form.cover">
-                                <option value="okladka1" checked> Okładka 1</option>
-                                <option value="okladka2">Okładka 2</option>
-                                <option value="okladka3">Kolor</option>
-                            </select>
-                            <input type="color" value="#aa2222" v-if="form.cover == 'okladka3'" v-model="form.coverColor">
-                            <legend>Gumki</legend>
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" v-model="form.rubber1">
-                                Gumka zamykająca
-                            </label>
-                            <br />
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" v-model="form.rubber2">
-                                Gumka na długopis
-                            </label>
-                            <br />
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" v-model="form.banderole">
-                                Banderola
-                            </label>
-                        </div>
-                    </form>
+            </div>
+        </div>
+        <div class="column is-4">
+            <div class="panel">
+                <div class="panel-heading">
+                    Narożniki
                 </div>
+                <div class="panel-block">
+                    <label class="radio">
+                        <input v-model="form.corners" type="radio" name="corners" id="rounded-corners" value="rounded-corners">
+                        zaokrąglone narożniki
+                    </label>
+                </div>
+                <div class="panel-block">
+                    <label class="radio">
+                        <input v-model="form.corners" type="radio" name="corners" id="normal-corners" value="normal-corners">
+                        proste narożniki
+                    </label>
+                </div>
+                <div class="panel-heading">
+                    Okładka
+                </div>
+                <div class="panel-block">
+                    <div class="select is-fullwidth">
+                        <select id="formOkladka" v-model="form.cover">
+                            <option value="okladka1" checked> Okładka 1</option>
+                            <option value="okladka2">Okładka 2</option>
+                            <option value="okladka3">Kolor</option>
+                        </select>
+                    </div>
+                    <input type="color" value="#aa2222" v-if="form.cover == 'okladka3'" v-model="form.coverColor">
+                </div>
+                <div class="panel-heading">
+                    Inne
+                </div>
+                <div class="panel-block">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" v-model="form.rubber1">
+                        Gumka zamykająca
+                    </label>
+                </div>
+                <div class="panel-block">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" v-model="form.rubber2">
+                        Gumka na długopis
+                    </label>
+                </div>
+                <div class="panel-block">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" v-model="form.banderole">
+                        Banderola
+                    </label>
+                </div>
+            </div>
                 <div class="col-sm-4">
                     <!-- <form>
                         <div class="form-group">
@@ -101,7 +127,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -336,6 +362,7 @@ export default {
 
 <style lang="less">
 #notebook-customizer{
+    margin-top: 50px;
     #notes{
         margin: auto;
         display:block;
@@ -644,6 +671,12 @@ export default {
     form{
         .form-group{
             border:1px solid #000;
+        }
+    }
+    .controls{
+        align-items: center;
+        .buttons{
+            margin-top: 20px;
         }
     }
 }
