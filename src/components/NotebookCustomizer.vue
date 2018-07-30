@@ -41,21 +41,21 @@
                         See outside
                     </div>
                     <div class="panel-block">
-                        <span class="button is-fullwidth" @click="setView('spine')">Grzbiet</span>
-                        <span class="button is-fullwidth" @click="setView('side-printing')">Brzegi</span>
+                        <span class="button is-fullwidth" @click="setView('spine')">Ridge</span>
+                        <span class="button is-fullwidth" @click="setView('side-printing')">Edge</span>
                     </div>
                 <div class="panel-heading">
                     See inside
                 </div>
                 <div class="panel-block">
                     <p class="control">
-                        <span class="button is-fullwidth" @click="setPage(0)">Okładka przód</span>
-                        <span class="button is-fullwidth" @click="setPage(1)">Wyklejka z przodu</span>
-                        <span class="button is-fullwidth" @click="setPage(2)">Kalendarz</span>
-                        <span class="button is-fullwidth" @click="setPage(4)">Wnętrze</span>
-                        <span class="button is-fullwidth" @click="setPage(6)">Strony reklamowe</span>
-                        <span class="button is-fullwidth" @click="setPage(7)">Wyklejka z tyłu</span>
-                        <span class="button is-fullwidth" @click="setPage(8)">Okładka tył</span>
+                        <span class="button is-fullwidth" @click="setPage(0)">Cover front</span>
+                        <span class="button is-fullwidth" @click="setPage(1)">Inside front</span>
+                        <span class="button is-fullwidth" @click="setPage(2)">Calendar</span>
+                        <span class="button is-fullwidth" @click="setPage(4)">Inside</span>
+                        <span class="button is-fullwidth" @click="setPage(6)">Advertisement pages</span>
+                        <span class="button is-fullwidth" @click="setPage(7)">Inside Back</span>
+                        <span class="button is-fullwidth" @click="setPage(8)">Cover back</span>
                     </p>
                 </div>
             </div>
@@ -63,52 +63,63 @@
         <div class="column is-4">
             <div class="panel">
                 <div class="panel-heading">
-                    Narożniki
+                    Corners
                 </div>
                 <div class="panel-block">
                     <label class="radio">
                         <input v-model="form.corners" type="radio" name="corners" id="rounded-corners" value="rounded-corners">
-                        zaokrąglone narożniki
+                        round corners
                     </label>
                 </div>
                 <div class="panel-block">
                     <label class="radio">
                         <input v-model="form.corners" type="radio" name="corners" id="normal-corners" value="normal-corners">
-                        proste narożniki
+                        pointed corners
                     </label>
                 </div>
                 <div class="panel-heading">
-                    Okładka
+                    Cover
                 </div>
                 <div class="panel-block">
                     <div class="select is-fullwidth">
                         <select id="formOkladka" v-model="form.cover">
-                            <option value="okladka1" checked> Okładka 1</option>
-                            <option value="okladka2">Okładka 2</option>
-                            <option value="okladka3">Kolor</option>
+                            <option value="okladka1" checked>Cover 1</option>
+                            <option value="okladka2">Cover 2</option>
+                            <option value="okladka3">Color</option>
                         </select>
                     </div>
-                    <input type="color" value="#aa2222" v-if="form.cover == 'okladka3'" v-model="form.coverColor">
+                </div>
+                <div class="panel-block" v-if="form.cover == 'okladka3'">
+                    <label class="form-check-label">
+                        <input type="color" value="#aa2222" v-model="form.coverColor">
+                        Select color
+                    </label>
                 </div>
                 <div class="panel-heading">
-                    Inne
+                    Others
+                </div>
+                <div class="panel-block">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" v-model="form.print">
+                        Nadruk
+                    </label>
                 </div>
                 <div class="panel-block">
                     <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" v-model="form.rubber1">
-                        Gumka zamykająca
+                        Elastic band
                     </label>
                 </div>
                 <div class="panel-block">
                     <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" v-model="form.rubber2">
-                        Gumka na długopis
+                        Pen loop
                     </label>
                 </div>
                 <div class="panel-block">
                     <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" v-model="form.banderole">
-                        Banderola
+                        Banderole
                     </label>
                 </div>
             </div>
@@ -246,11 +257,25 @@ export default {
                     this.notebook.pages.coverTyl.color = this.form.coverColor;
                     this.notebook.spineColor = this.form.coverColor;
                 }
-                // Gumka zamykająca
-                if(this.form.rubber1){
-                    this.notebook.pages.coverFront.childFront2.class = 'gumka-zamykajaca';
+                // Banderola
+                if(this.form.banderole){
+                    this.notebook.pages.coverFront.childFront2.class = 'banderola';
                 } else {
                     this.notebook.pages.coverFront.childFront2.class = '';
+                }
+
+                // Gumka zamykająca
+                if(this.form.rubber1){
+                    this.notebook.pages.coverFront.childFront1.class = 'gumka-zamykajaca';
+                } else {
+                    this.notebook.pages.coverFront.childFront1.class = '';
+                }
+
+                // Print
+                if(this.form.print){
+                    this.notebook.pages.coverFront.childFront.class = 'cover-nadruk';
+                } else {
+                    this.notebook.pages.coverFront.childFront.class = '';
                 }
 
                 // Gumka na długopis
@@ -260,12 +285,6 @@ export default {
                     this.notebook.pages.coverTyl.childFront1.class = '';
                 }
 
-                // Banderola
-                if(this.form.banderole){
-                    this.notebook.pages.coverFront.childFront1.class = 'banderola';
-                } else {
-                    this.notebook.pages.coverFront.childFront1.class = '';
-                }
             },
             deep: true,
         }
@@ -283,6 +302,7 @@ export default {
             view: '',
             form:{
                 cover: 'okladka1',
+                print: 'logo1',
                 coverColor: '',
                 corners: 'rounded-corners',
                 rubber1: true,
@@ -299,10 +319,10 @@ export default {
                         class: 'okladka1',
                         opened: false,
                         color: '',
-                        childFront2:{
+                        childFront1:{
                             class: 'gumka-zamykajaca',
                         },
-                        childFront1:{
+                        childFront2:{
                             class: 'banderola',
                         },
                         childFront:{
@@ -564,7 +584,7 @@ export default {
                     box-shadow: inset -20px 0 120px -50px rgba(0,0,0,0.75);
                 }
                 .cover-nadruk{
-                    background-image: url(../images/cover2.jpg);
+                    background-image: url(../images/cover-logo.png);
                     background-size: 100% 100%;
                     width: 195px;
                     height: 290px;
@@ -572,14 +592,14 @@ export default {
                 }
                 .kartka{
                     background-color: #fff;
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/kratka.png);
                     background-size: 100% 100%;
                     width: 195px;
                     height: 290px;
                     margin-top: 5px;
                 }
                 .kalendarz{
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/calendar.png);
                     background-size: 100% 100%;
                     background-color: #fff;
                     width: 195px;
@@ -587,7 +607,7 @@ export default {
                     margin-top: 5px;
                 }
                 .reklama{
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/adv.jpg);
                     background-size: 100% 100%;
                     background-color: #D8AF60;
                     width: 195px;
@@ -607,18 +627,18 @@ export default {
                     margin-top: 5px;
                 }
                 .banderola{
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/banderola.jpg);
                     background-size: cover;
                     background-repeat: repeat-y;
                     background-color: #fff;
-                    top:35%;
+                    top:55%;
                     width: 100%;
                     height: 30%;
                     transform: scaleX(1.01);
                     box-shadow: 0 0 5px rgba(0,0,0,0.75);;
                 }
                 .gumka-zamykajaca{
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/gumka-zamykajaca.png);
                     background-size: auto;
                     background-repeat: repeat-y;
                     background-color: #fff;
@@ -627,10 +647,10 @@ export default {
                     width: 15px;
                     height: 100%;
                     transform: scaleY(1.01);
-                    box-shadow: 0 0 5px rgba(0,0,0,0.75);;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.75);
                 }
                 .gumka-uchwyt-dlugopis{
-                    background-image: url(../images/cover1.jpg);
+                    background-image: url(../images/gumka-uchwyt-dlugopis.png);
                     background-size: auto;
                     background-repeat: repeat-y;
                     background-color: #fff;
