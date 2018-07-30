@@ -31,3 +31,6 @@ Then you can run files in dist/ folder.
 ## Credits
 
 * [http://www.cadhatch.com/seamless-rubber-and-plastic/4588167785](http://www.cadhatch.com/seamless-rubber-and-plastic/4588167785) - Leather texture
+[Photo by Artem Bali from Pexels](https://www.pexels.com/photo/man-wearing-pink-polo-shirt-with-text-overlay-1114376/) - Advertise page
+[Photo by Daniel Nettesheim from Pexels](https://www.pexels.com/photo/white-and-blue-route-66-logo-1162361/) - Cover logo
+[](https://www.pexels.com/photo/advertisement-advertising-bright-business-439857/) - Cover advertisement
