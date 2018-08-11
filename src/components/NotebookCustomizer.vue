@@ -160,13 +160,13 @@ export default {
             this.setPage(this.destinationPage);
         },
         setPage(page,speed = 500){
-            // zapisanie do zmiennej jesli page bylo ustawione w formie liczby
+            // save to variable destination page
             this.destinationPage = page;
-            // zresetuj widok
+            // reset view
             this.view = '';
-            // zwróć true gdy przeskroluje przez strony
+            // return true when scrolling is at the end
             return new Promise((resolve, reject)=>{
-                // funkcja pomocnicza aby wywolac ja jeszcze przed pierwszym wykonaniem setInterval ktore sie uruchamia po chwili
+                // helper function which is run at beginning and then inside setInterval
                 function pager(app,direction){
                     if(app.currentPage == page){
                         clearInterval(app.timer);
@@ -179,48 +179,48 @@ export default {
                             app.currentPage--;
                     }
                 }
-                // ustaw prędkość
-                this.pageSpeed = speed;
-                // jeśli strony do przodu
-                if(page>this.currentPage){
-                    // kierunek stronicowania
+                // set speed
+                this.pageSpeed = speed
+                // if forward
+                if(page > this.currentPage){
+                    // direction
                     this.onTop = false;
-                    // pozwol przewinac strone razem z kliknieciem
+                    // let to change current page even durning animation
                     if(!this.isPaged){
                         pager(this,true);
                     }
-                    // zablokuj stronicowanie
+                    // disable
                     this.isPaged = true;
-                    // usun stary i stworz nowy interval
+                    // remove old and create new setInterval
                     clearInterval(this.timer);
                     this.timer = setInterval(()=>{
                         pager(this,true);
                     },this.pageSpeed);
                 }
-                // jeśli strony do tyłu
-                if(page<this.currentPage){
-                    // kierunek stronicowania
+                // if backard
+                if(page < this.currentPage){
+                    // direction
                     this.onTop = true;
-                    // pozwol przewinac strone razem z kliknieciem
+                    // let to change current page even durning animation
                     if(!this.isPaged){
                         pager(this,false);
                     }
-                    // zablokuj stronicowanie
+                    // disable
                     this.isPaged = true;
-                    // usun stary i stworz nowy interval
+                    // remove old and create new setInterval
                     clearInterval(this.timer);
                     this.timer = setInterval(()=>{
                         pager(this,false);
                     },this.pageSpeed);
                 }
-                // gdy jestesmy na tej stronie
+                // resolve when we at destination page
                 if(page==this.currentPage){
                     resolve(true);
                 }
             });
         },
         setView(view){
-            // jesli jest juz wlaczony ten widok to go wylacz
+            // disable view when we already on it
             if(this.view == 'view-'+view){
                 this.view = '';
             } else {
